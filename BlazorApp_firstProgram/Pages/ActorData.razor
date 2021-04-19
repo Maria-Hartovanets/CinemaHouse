@@ -1,0 +1,72 @@
+﻿@page "/actors"
+
+@using BlazorApp_firstProgram.Data
+@inject ServiceActor ActorService
+@using Microsoft.Extensions.Logging
+@inject ILogger<ErrorEventArgs> Logger
+<head>
+    <style>
+        body {
+         background-color: bisque;
+         }
+    </style>
+<title><h1><b>Actors in our cinema</b></h1></title>
+    </head>
+<body>
+<p>This's a table with actors' info from a service.</p>
+
+@if (actors == null)
+{
+    <h1>Sorry, we could not load this product because of an error.</h1>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th> № </th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Rating</th>
+                <th>Count of movies</th>
+                <th>Hometown</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var actor in actors)
+            {
+                <tr>
+                    <td>@actor.ID</td>
+                    <td>@actor.FirstName</td>
+                    <td>@actor.LastName</td>
+                    <td>@actor.Rating</td>
+                    <td>@actor.CountOfMovie</td>
+                    <td>@actor.HomeTown</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+</body>
+
+@code{
+    private List<Actor> actors;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            actors = ActorService.Array();
+        }
+        catch(Exception ex)
+        {
+            Logger.LogError(ex, $"Error in read data from file Type{ex.Message}");
+        }
+
+
+
+    }
+
+}

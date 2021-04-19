@@ -1,0 +1,71 @@
+﻿@page "/staff"
+
+@using BlazorApp_firstProgram.Data
+@inject ServiceStaff StaffServise
+@using Microsoft.Extensions.Logging
+@inject ILogger<ErrorEventArgs> Logger
+
+<head>
+    <style>
+        body {
+            background-color: bisque;
+        }
+    </style>
+    <title><h1><b>Our best staff!</b></h1></title>
+    </head>
+<body>
+    <p>This component demonstrates fetching data from a service.</p>
+
+    @if (staff == null)
+    {
+        <h1>Sorry, we could not load this product  because of an error.</h1>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th> № </th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Type</th>
+                    <th>Age</th>
+                    <th>Rating</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var person in staff)
+                {
+                    <tr>
+                        <td>@person.ID</td>
+                        <td>@person.FirstName</td>
+                        <td>@person.LastName</td>
+                        <td>@person.Type</td>
+                        <td>@person.Age</td>
+                        <td>@person.Rating</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+</body>
+
+    @code {
+        private List<Staff> staff;
+
+        protected override async Task OnInitializedAsync()
+        {
+            try
+            {
+                staff = StaffServise.Array();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, $"Error in read data from file Type{ex.Message}");
+            }
+
+        }
+    }

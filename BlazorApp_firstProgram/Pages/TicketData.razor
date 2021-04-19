@@ -1,0 +1,83 @@
+﻿@page "/tickets"
+
+@using BlazorApp_firstProgram.Data
+@inject ServiseTicket TicketService
+@using Microsoft.Extensions.Logging
+@inject ILogger<ErrorEventArgs> Logger
+
+<head>
+    <style>
+        body {
+            background-color: bisque;
+        }
+    </style>
+    <title>
+        <h1><b>Buy ticket now!</b></h1></title>
+</head>
+<body>
+
+        <p>This's a table with info of tickets from a service.</p>
+
+        @if (tickets == null)
+        {
+            <h1>Sorry, we could not load this product because of an error.</h1>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <th> № </th>
+                        <th>Movie</th>
+                        <th>Genre</th>
+                        <th>Rating</th>
+                        <th>Price</th>
+                        <th>Kind of movie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ticket in tickets)
+                    {
+                        <tr>
+                            <td>@ticket.ID</td>
+                            <td>@ticket.NameMovie</td>
+                            <td>@ticket.Genre</td>
+                            <td>@ticket.Rating</td>
+                            <td>@ticket.Price</td>
+                            <td>@ticket.KindM</td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+            <button class="btn btn-primary" @onclick="BuyTicket">Buy</button>
+
+        }
+</body>
+
+        @code {
+            private List<Ticket> tickets;
+
+
+            private void BuyTicket()
+            {
+
+            }
+            protected override async Task OnInitializedAsync()
+            {
+                try
+                {
+                    tickets = TicketService.Array();
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError(ex, $"Error in read data from file Type{ex.Message}");
+                }
+            }
+
+
+        }
+
