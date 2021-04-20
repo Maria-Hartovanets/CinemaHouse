@@ -18,7 +18,6 @@ namespace BlazorApp_firstProgram.Data
         public ServiceActor()
         {
             delim = ' ';
-           
             filePath = @"D:\Programming\PersonalPractice\BlazorApp_firstProgram\BlazorApp_firstProgram\DataTxt\ActorFile.txt";
 
             actorArr = new List<Actor>();
