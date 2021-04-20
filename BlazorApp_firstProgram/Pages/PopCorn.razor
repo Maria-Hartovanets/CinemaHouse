@@ -1,95 +1,74 @@
 ﻿@page "/popcorn"
 <head>
 
-    <style>
-        body{
-            background-color:bisque;
-        }
-        button{
-            background-color:red;
-            text-decoration:dashed;
-            text-decoration-color:black;
-        }
-        div {
-            width: 100%; /* Ширина */
-            padding: 20px; /* Поля */
-           
-            -moz-box-sizing: border-box; /* Для Firefox */
-            -webkit-box-sizing: border-box; /* Для Safari и Chrome */
-            box-sizing: border-box; /* Для IE и Opera */
-        }
-
-        div2 {
-            margin-bottom: auto;
-            margin-left: 60%;
-        }
-    </style>
     <title><h1><b>Different tastes of popcorn</b></h1></title>
 </head>
 <body>
-<div>
 
+    <div>
     <h3><b>Sweet popcorn</b></h3>
 
-</div>
+   
 
-<div1>
-    <h4>Caramel popcorn</h4>
-    <img itemprop="image" alt="Caramel popcorn" src="https://popcorn-world.com.ua/wp-content/uploads/bfi_thumb/FOTO8282_md-scaled-oomsd8top8d0ugqmxi0g2h8slw2nocx1v822bbnfxm.jpg">
-    <p>Current count: @currentPopCornCaramel</p>
-    <button class="btn btn-primary" @onclick="IncrementPopCornCaramel">Add to cart</button>
-    @if (@currentPopCornCaramel > 0)
-    {
-        <button class="btn btn-primary" @onclick="IncrementPopCornCaramelMinys">Delete from cart</button>
-    }
-</div1>
+    <div1>
+        <h4>Caramel popcorn</h4>
+        <img itemprop="image" alt="Caramel popcorn" src="https://popcorn-world.com.ua/wp-content/uploads/bfi_thumb/FOTO8282_md-scaled-oomsd8top8d0ugqmxi0g2h8slw2nocx1v822bbnfxm.jpg">
+        <p>Current count: @currentPopCornCaramel</p>
+        <button class="btn btn-primary" @onclick="IncrementPopCornCaramel">Add to cart</button>
+        @if (@currentPopCornCaramel > 0)
+        {
+            <button class="btn btn-primary" @onclick="IncrementPopCornCaramelMinys">Delete from cart</button>
+        }
+    </div1>
 
-<div2>
-    <h4>Sugar popcorn</h4>
-    <img itemprop="image" alt="Sugar popcorn" src="https://popcorn-world.com.ua/wp-content/uploads/bfi_thumb/sugar-popcorn-o8eo3meg7gb0hz2o5guju8m3mrkvx7fgxvfs9l85m2.jpg">
-    <p>Current count: @currentPopCornSugar</p>
-    <button class="btn btn-primary" @onclick="IncrementPopCornSugar">Add to cart</button>
-    @if (@currentPopCornSugar > 0)
-    {
-        <button class="btn btn-primary" @onclick="IncrementPopCornSugarMinys">Delete from cart</button>
-    }
-</div2>
+    <div2>
+        <h4>Sugar popcorn</h4>
+        <img itemprop="image" alt="Sugar popcorn" src="https://popcorn-world.com.ua/wp-content/uploads/bfi_thumb/sugar-popcorn-o8eo3meg7gb0hz2o5guju8m3mrkvx7fgxvfs9l85m2.jpg">
+        <p>Current count: @currentPopCornSugar</p>
+        <button class="btn btn-primary" @onclick="IncrementPopCornSugar">Add to cart</button>
+        @if (@currentPopCornSugar > 0)
+        {
+            <button class="btn btn-primary" @onclick="IncrementPopCornSugarMinys">Delete from cart</button>
+        }
+    </div2>
 
-<div><h3><b>Salted popcorn</b></h3></div>
+    <div><h3><b>Salted popcorn</b></h3></div>
 
 
-<div3>
-    <h4>Popcorn with bacon</h4>
-    <img itemprop="image" alt="Bacon popcorn" src="https://popcorn-world.com.ua/wp-content/uploads/bfi_thumb/FOTO3806_MD-scaled-oomsdha8eqolqyeck3o36x3xycwylmumwdxfmtawdm.jpg">
-    <p>Current count: @currentPopCornBacon</p>
-    <button class="btn btn-primary" @onclick="IncrementPopCornBacon">Add to cart</button>
-    @if (@currentPopCornBacon > 0)
-    {
-        <button class="btn btn-primary" @onclick="IncrementPopCornBaconMinys">Delete from cart</button>
-    }
-</div3>
+    <div3>
+        <h4>Popcorn with bacon</h4>
+        <img itemprop="image" alt="Bacon popcorn" src="https://popcorn-world.com.ua/wp-content/uploads/bfi_thumb/FOTO3806_MD-scaled-oomsdha8eqolqyeck3o36x3xycwylmumwdxfmtawdm.jpg">
+        <p>Current count: @currentPopCornBacon</p>
+        <button class="btn btn-primary" @onclick="IncrementPopCornBacon">Add to cart</button>
+        @if (@currentPopCornBacon > 0)
+        {
+            <button class="btn btn-primary" @onclick="IncrementPopCornBaconMinys">Delete from cart</button>
+        }
+    </div3>
 
-<div4>
-    <h4>Popcorn with cheese</h4>
-    <img itemprop="image" alt="Cheese popcorn" src="https://popcorn-world.com.ua/wp-content/uploads/bfi_thumb/FOTO3853_MD-scaled-oomsbmjoxi58un3adstkrvy7s01wf4hoz7lyk61une.jpg">
-    <p>Current count: @currentPopCornCheese</p>
-    <button class="btn btn-primary" @onclick="IncrementPopCornCheese">Add to cart</button>
-    @if (@currentPopCornCheese > 0)
-    {
-        <button class="btn btn-primary" @onclick="IncrementPopCornCheeseMinys">Delete from cart</button>
-    }
-</div4>
+    <div4>
+        <h4>Popcorn with cheese</h4>
+        <img itemprop="image" alt="Cheese popcorn" src="https://popcorn-world.com.ua/wp-content/uploads/bfi_thumb/FOTO3853_MD-scaled-oomsbmjoxi58un3adstkrvy7s01wf4hoz7lyk61une.jpg">
+        <p>Current count: @currentPopCornCheese</p>
+        <button class="btn btn-primary" @onclick="IncrementPopCornCheese">Add to cart</button>
+        @if (@currentPopCornCheese > 0)
+        {
+            <button class="btn btn-primary" @onclick="IncrementPopCornCheeseMinys">Delete from cart</button>
+        }
+    </div4>
 
-<div5>
-    <h4>Salted popcorn</h4>
-    <img itemprop="image" alt="Salted popcorn" src="https://popcorn-world.com.ua/wp-content/uploads/bfi_thumb/salt-popcorn-o8eo3meg7gb0hz2o5guju8m3mrkvx7fgxvfs9l85m2.jpg">
-    <p>Current count: @currentPopCornSalt</p>
-    <button class="btn btn-primary" @onclick="IncrementPopCornSalt">Add to cart</button>
-    @if (@currentPopCornSalt > 0)
-    {
-        <button class="btn btn-primary" @onclick="IncrementPopCornSaltMinys">Delete from cart</button>
-    }
-</div5></body>
+    <div5>
+        <h4>Salted popcorn</h4>
+        <img itemprop="image" alt="Salted popcorn" src="https://popcorn-world.com.ua/wp-content/uploads/bfi_thumb/salt-popcorn-o8eo3meg7gb0hz2o5guju8m3mrkvx7fgxvfs9l85m2.jpg">
+        <p>Current count: @currentPopCornSalt</p>
+        <button class="btn btn-primary" @onclick="IncrementPopCornSalt">Add to cart</button>
+        @if (@currentPopCornSalt > 0)
+        {
+            <button class="btn btn-primary" @onclick="IncrementPopCornSaltMinys">Delete from cart</button>
+        }
+    </div5>
+    </div>
+</body>
 
 @code {
     private int currentPopCornCheese = 0;

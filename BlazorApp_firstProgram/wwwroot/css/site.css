@@ -1,8 +1,9 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family:'Times New Roman', Times, serif;
-    font-size:large;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    background-color: bisque;
 }
 
 a, .btn-link {
@@ -28,21 +29,35 @@ a, .btn-link {
     border-top: 1px solid #791e1e;
     
 }
-    .btn-primary {
+.btn-primary {
     color: #fff;
     background-color: red;
     border-color: ivory;
+    text-decoration: dashed;
+    text-decoration-color: black;
 }
-        .btn-primary:hover {
-            color: #fff;
-            background-color: orangered;
-            border-color: ivory;
-        }
+    .btn-primary:hover {
+        color: #fff;
+        background-color: orangered;
+        border-color: ivory;
+        text-decoration: dashed;
+        text-decoration-color: black;
+    }
 
 app {
     position: relative;
     display: flex;
     flex-direction: column;
+}
+
+
+div {
+    width: 100%; /* Ширина */
+    padding: 20px; /* Поля */
+
+    -moz-box-sizing: border-box; /* Для Firefox */
+    -webkit-box-sizing: border-box; /* Для Safari и Chrome */
+    box-sizing: border-box; /* Для IE и Opera */
 }
 
 .top-row {
