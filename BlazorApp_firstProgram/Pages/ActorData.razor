@@ -1,68 +1,129 @@
 ﻿@page "/actors"
 
+
 @using BlazorApp_firstProgram.Data
-@inject ServiceActor ActorService
-@using Microsoft.Extensions.Logging
-@inject ILogger<ErrorEventArgs> Logger
-<head>
-    
-<title><h1><b>Actors in our cinema</b></h1></title>
-    </head>
+@inject BlazorApp_firstProgram.IService.IServiceObj<Actor> actorService
 <body>
-<p>This's a table with actors' info from a service.</p>
+    <h3>Actor DataBase</h3>
 
-@if (actors == null)
-{
-    <h1>Sorry, we could not load this product because of an error.</h1>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-
-                <th> № </th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Rating</th>
-                <th>Count of movies</th>
-                <th>Hometown</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var actor in actors)
-            {
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Firstname:</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="person.FirstName" style="width:40%;" placeholder="Firstname" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Lastname:</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="person.LastName" style="width:40%;" placeholder="Lastname" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Where is she/he from?:</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="person.HomeTown" style="width:40%;" placeholder="HomeTown" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Her/his rating:</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="person.Rating" type="number" style="width:40%;" placeholder="Rating" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>In how many movies he/she filmed?:</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="person.CountOfMovie" type="number" style="width:40%;" placeholder="Movies" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4"></div>
+        <div class="col-nd-8">
+            <button class="btn btn-primary" @onclick="@(e=>Save())">Save</button>
+            <button class="btn btn-danger" @onclick="@(e=>Reset())" style="float:right">Reset</button>
+        </div>
+    </div>
+    @if (usersArr == null)
+    {
+        <h1>Sorry, we could not load this product because of an error.</h1>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@actor.ID</td>
-                    <td>@actor.FirstName</td>
-                    <td>@actor.LastName</td>
-                    <td>@actor.Rating</td>
-                    <td>@actor.CountOfMovie</td>
-                    <td>@actor.HomeTown</td>
-                </tr>
-            }
-        </tbody>
 
-    </table>
-}
+                    <th> № </th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Rating</th>
+                    <th>Hometown</th>
+                    <th>Movies count</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var person in usersArr)
+                {
+                    <tr>
+                        <th> № </th>
+                        <td>@person.Id</td>
+                        <td>@person.FirstName</td>
+                        <td>@person.LastName</td>
+                        <td>@person.Rating</td>
+                        <td>@person.HomeTown</td>
+                        <td>@person.CountOfMovie</td>
+                        <td>
+                            <button class="btn btn-primary" @onclick="@(e=>Edit(@person.Id))">Edit</button>
+                            <button class="btn btn-danger" @onclick="@(e=>Delete(@person.Id))" style="float:right">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
 </body>
 
-@code{
-    private List<Actor> actors;
+
+@code {
+    Actor person = new Actor();
+    List<Actor> usersArr = new List<Actor>();
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            actors = ActorService.Array();
-        }
-        catch(Exception ex)
-        {
-            Logger.LogError(ex, $"Error in read data from file Type{ex.Message}");
-        }
-
-
-
+        GetUsers();
     }
-
+    private void GetUsers()
+    {
+        usersArr = actorService.GetUsers();
+    }
+    private void Save()
+    {
+        actorService.SaveOrUpdate(person);
+        Reset();
+        GetUsers();
+    }
+    private void Reset()
+    {
+        person = new Actor();
+    }
+    private void Edit(string userId)
+    {
+        person = actorService.GetUser(userId);
+    }
+    private void Delete(string userId)
+    {
+        actorService.Delete(userId);
+        GetUsers();
+    }
 }

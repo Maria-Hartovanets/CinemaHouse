@@ -1,4 +1,6 @@
-using BlazorApp_firstProgram.Data;
+//using BlazorApp_firstProgram.Data;
+using BlazorApp_firstProgram.IService;
+using BlazorApp_firstProgram.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using BlazorApp_firstProgram.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +31,11 @@ namespace BlazorApp_firstProgram
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<ServiceStaff>();
-            services.AddSingleton<ServiceActor>();
-            services.AddSingleton<ServiseTicket>();
+            services.AddScoped<IServiceObj<User>, ServiceUser>();
+            services.AddScoped<IServiceObj<Actor>, ServiceActor>();
+            services.AddScoped<IServiceObj<Staff>, ServiceStaff>();
+            services.AddScoped<IServiceObj<Ticket>, ServiceTicket>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -53,7 +53,7 @@ app {
 
 div {
     width: 100%; /* Ширина */
-    padding: 20px; /* Поля */
+    padding: 5px; /* Поля */
 
     -moz-box-sizing: border-box; /* Для Firefox */
     -webkit-box-sizing: border-box; /* Для Safari и Chrome */

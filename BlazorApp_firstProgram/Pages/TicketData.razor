@@ -1,79 +1,127 @@
 ﻿@page "/tickets"
-
 @using BlazorApp_firstProgram.Data
-@inject ServiseTicket TicketService
-@using Microsoft.Extensions.Logging
-@inject ILogger<ErrorEventArgs> Logger
-
-<head>
-    
-    <title>
-        <h1><b>Buy ticket now!</b></h1></title>
-</head>
+@inject BlazorApp_firstProgram.IService.IServiceObj<Ticket> ticketService
 <body>
+    <h3>Ticket DataBase</h3>
 
-        <p>This's a table with info of tickets from a service.</p>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Movie:</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="ticket.NameMovie" style="width:40%;" placeholder="Movie" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Genre:</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="ticket.Genre" style="width:40%;" placeholder="Genre" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Kind of movie:</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="ticket.KindM" style="width:40%;" placeholder="Kind" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Rating of the movie:</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="ticket.Rating" type="number" style="width:40%;" placeholder="Rating" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Price:</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="ticket.Price" type="number" style="width:40%;" placeholder="Price" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4"></div>
+        <div class="col-nd-8">
+            <button class="btn btn-primary" @onclick="@(e=>Save())">Save</button>
+            <button class="btn btn-danger" @onclick="@(e=>Reset())" style="float:right">Reset</button>
+        </div>
+    </div>
+    @if (usersArr == null)
+    {
+        <h1>Sorry, we could not load this product because of an error.</h1>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
 
-        @if (tickets == null)
-        {
-            <h1>Sorry, we could not load this product because of an error.</h1>
-        }
-        else
-        {
-            <table class="table">
-                <thead>
+                    <th> № </th>
+                    <th>Movie</th>
+                    <th>Genre</th>
+                    <th>Rating</th>
+                    <th>Price</th>
+                    <th>Kind of movie</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in usersArr)
+                {
                     <tr>
-
                         <th> № </th>
-                        <th>Movie</th>
-                        <th>Genre</th>
-                        <th>Rating</th>
-                        <th>Price</th>
-                        <th>Kind of movie</th>
+                        <td>@ticket.Id</td>
+                        <td>@ticket.NameMovie</td>
+                        <td>@ticket.Genre</td>
+                        <td>@ticket.Rating</td>
+                        <td>@ticket.Price</td>
+                        <td>@ticket.KindM</td>
+                        <td>
+                            <button class="btn btn-primary" @onclick="@(e=>Edit(@ticket.Id))">Edit</button>
+                            <button class="btn btn-danger" @onclick="@(e=>Delete(@ticket.Id))" style="float:right">Delete</button>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var ticket in tickets)
-                    {
-                        <tr>
-                            <td>@ticket.ID</td>
-                            <td>@ticket.NameMovie</td>
-                            <td>@ticket.Genre</td>
-                            <td>@ticket.Rating</td>
-                            <td>@ticket.Price</td>
-                            <td>@ticket.KindM</td>
+                }
+            </tbody>
 
-                        </tr>
-                    }
-                </tbody>
-
-            </table>
-
-            <button class="btn btn-primary" @onclick="BuyTicket">Buy</button>
-
-        }
+        </table>
+    }
 </body>
 
-        @code {
-            private List<Ticket> tickets;
 
+@code {
+    Ticket ticket = new Ticket();
+    List<Ticket> usersArr = new List<Ticket>();
 
-            private void BuyTicket()
-            {
-
-            }
-            protected override async Task OnInitializedAsync()
-            {
-                try
-                {
-                    tickets = TicketService.Array();
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError(ex, $"Error in read data from file Type{ex.Message}");
-                }
-            }
-
-
-        }
-
+    protected override async Task OnInitializedAsync()
+    {
+        GetUsers();
+    }
+    private void GetUsers()
+    {
+        usersArr = ticketService.GetUsers();
+    }
+    private void Save()
+    {
+        ticketService.SaveOrUpdate(ticket);
+        Reset();
+        GetUsers();
+    }
+    private void Reset()
+    {
+        ticket = new Ticket();
+    }
+    private void Edit(string userId)
+    {
+        ticket = ticketService.GetUser(userId);
+    }
+    private void Delete(string userId)
+    {
+        ticketService.Delete(userId);
+        GetUsers();
+    }
+}
