@@ -10,6 +10,7 @@ namespace BlazorApp_firstProgram.Service
 {
     public class ServiceUser : IServiceObj<User>
     {
+
         private MongoClient _mongoClient = null;
         private IMongoCollection<User> _userTable = null;
         private IMongoDatabase _database = null;
@@ -48,6 +49,17 @@ namespace BlazorApp_firstProgram.Service
             {
                 _userTable.ReplaceOne(x => x.Id == user.Id, user);
             }
+        }
+
+        public static bool EqualPasswords(string password)
+        {
+            string passwordAdmin = "12345";
+            if (password == passwordAdmin)
+            {
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

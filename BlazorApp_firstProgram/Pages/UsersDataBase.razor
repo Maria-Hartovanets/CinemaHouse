@@ -5,7 +5,18 @@
 
 <div class="row">
     <div class="col-nd-4">
-        <label>Firstname:</label>
+        <label>Your password?:</label>
+    </div>
+    <div class="col-nd-8">
+        <input @bind="user.Password" type="number" style="width:40%;" placeholder="Password" />
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-nd-4">
+        <h3>This block is only for editing and adding new info:</h3>
+        <label>What's your firstname?:</label>
     </div>
     <div class="col-nd-8">
         <input @bind="user.firstname" style="width:40%;" placeholder="Firstname" />
@@ -13,7 +24,7 @@
 </div>
 <div class="row">
     <div class="col-nd-4">
-        <label>Lastname:</label>
+        <label>What's your lastname:</label>
     </div>
     <div class="col-nd-8">
         <input @bind="user.lastname" style="width:40%;" placeholder="Lastname" />
@@ -21,7 +32,7 @@
 </div>
 <div class="row">
     <div class="col-nd-4">
-        <label>Hometown:</label>
+        <label>Where r u from?</label>
     </div>
     <div class="col-nd-8">
         <input @bind="user.hometown" style="width:40%;" placeholder="Hometown" />
@@ -29,55 +40,23 @@
 </div>
 <div class="row">
     <div class="col-nd-4">
-        <label>Age:</label>
+        <label>How old r u?:</label>
     </div>
     <div class="col-nd-8">
         <input @bind="user.age" type="number" style="width:40%;" placeholder="Age" />
     </div>
 </div>
+
 <div class="row">
     <div class="col-nd-4"></div>
     <div class="col-nd-8">
-        <button class="btn btn-primary" @onclick="@(e=>Save())">Save</button>
+        <button class="btn btn-primary" @onclick="@(e=>Save())">Save your info</button>
         <button class="btn btn-danger" @onclick="@(e=>Reset())" style="float:right">Reset</button>
     </div>
 </div>
-@if (usersArr == null)
-{
-    <h1>Sorry, we could not load this product because of an error.</h1>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
 
-                <th> № </th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Hometown</th>
-                <th>Age</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in usersArr)
-            {
-            <tr>
-                <td>@user.Id</td>
-                <td>@user.firstname</td>
-                <td>@user.lastname</td>
-                <td>@user.hometown</td>
-                <td>@user.age</td>
-                <td>
-                    <button class="btn btn-primary" @onclick="@(e=>Edit(@user.Id))">Edit</button>
-                    <button class="btn btn-danger" @onclick="@(e=>Delete(@user.Id))" style="float:right">Delete</button>
-                </td>
-            </tr>
-            }
-        </tbody>
 
-    </table>
-}
+
 
 
 @code {
@@ -102,13 +81,5 @@ else
     {
         user = new User();
     }
-    private void Edit(string userId)
-    {
-        user = userService.GetUser(userId);
-    }
-    private void Delete(string userId)
-    {
-        userService.Delete(userId);
-        GetUsers();
-    }
+
 }

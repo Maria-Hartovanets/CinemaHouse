@@ -1,0 +1,135 @@
+﻿@page "/adminwork"
+@using BlazorApp_firstProgram.Data
+@inject BlazorApp_firstProgram.IService.IServiceObj<User> userService
+<h3>UsersDataBase</h3>
+<div class="row">
+    <div class="col-nd-4">
+        <label>Input your password to have a permission(after press "ENTER"):</label>
+    </div>
+    <div class="col-nd-8">
+        <input @bind="password" type="number" style="width:40%;" placeholder="Password" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-nd-4">
+        <h3>This block is only for editing and adding new info:</h3>
+        <label>What's your firstname?:</label>
+    </div>
+    <div class="col-nd-8">
+        <input @bind="user.firstname" style="width:40%;" placeholder="Firstname" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-nd-4">
+        <label>What's your lastname:</label>
+    </div>
+    <div class="col-nd-8">
+        <input @bind="user.lastname" style="width:40%;" placeholder="Lastname" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-nd-4">
+        <label>Where r u from?</label>
+    </div>
+    <div class="col-nd-8">
+        <input @bind="user.hometown" style="width:40%;" placeholder="Hometown" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-nd-4">
+        <label>How old r u?:</label>
+    </div>
+    <div class="col-nd-8">
+        <input @bind="user.age" type="number" style="width:40%;" placeholder="Age" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-nd-4">
+        <label>Input your password to have a permission(after press "ENTER"):</label>
+    </div>
+    <div class="col-nd-8">
+        <input @bind="user.Password" type="number" style="width:40%;" placeholder="Password" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-nd-4"></div>
+    <div class="col-nd-8">
+        <button class="btn btn-primary" @onclick="@(e=>Save())">Press only saving new/edited info</button>
+        <button class="btn btn-danger" @onclick="@(e=>Reset())" style="float:right">Reset</button>
+    </div>
+</div>
+
+@if (Service.ServiceUser.EqualPasswords(password) != true)
+{
+    <h1>Sorry, u dont have a permission to see another people.</h1>
+
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th> № </th>
+                <th> Id </th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Hometown</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in usersArr)
+            {
+                <tr>
+                    <td>@(index+1)</td>
+                    <td>@user.Id</td>
+                    <td>@user.firstname</td>
+                    <td>@user.lastname</td>
+                    <td>@user.hometown</td>
+                    <td>@user.age</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="@(e => Edit(@user.Id))">Edit pers</button>
+                        <button class="btn btn-danger" @onclick="@(e => Delete(@user.Id))" style="float:right">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+
+@code {
+    string password;
+    int index = 0;
+    User user = new User();
+    List<User> usersArr = new List<User>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        GetUsers();
+    }
+    private void GetUsers()
+    {
+        usersArr = userService.GetUsers();
+    }
+    private void Save()
+    {
+        userService.SaveOrUpdate(user);
+        Reset();
+        GetUsers();
+    }
+    private void Reset()
+    {
+        user = new User();
+    }
+    private void Edit(string userId)
+    {
+        user = userService.GetUser(userId);
+    }
+    private void Delete(string userId)
+    {
+        userService.Delete(userId);
+        GetUsers();
+    }
+}

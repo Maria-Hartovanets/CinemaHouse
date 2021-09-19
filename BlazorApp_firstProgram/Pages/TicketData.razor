@@ -3,9 +3,18 @@
 @inject BlazorApp_firstProgram.IService.IServiceObj<Ticket> ticketService
 <body>
     <h3>Ticket DataBase</h3>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Input your password to have a permission(after press "ENTER"):</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="password" style="width:40%;" placeholder="Password" />
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-nd-4">
+            <h3>This block is only for editing and adding new info:</h3>
             <label>Movie:</label>
         </div>
         <div class="col-nd-8">
@@ -44,6 +53,7 @@
             <input @bind="ticket.Price" type="number" style="width:40%;" placeholder="Price" />
         </div>
     </div>
+
     <div class="row">
         <div class="col-nd-4"></div>
         <div class="col-nd-8">
@@ -51,16 +61,14 @@
             <button class="btn btn-danger" @onclick="@(e=>Reset())" style="float:right">Reset</button>
         </div>
     </div>
-    @if (usersArr == null)
+
+
+    @if (Service.ServiceUser.EqualPasswords(password) != true)
     {
-        <h1>Sorry, we could not load this product because of an error.</h1>
-    }
-    else
-    {
+        <h1>Sorry, your r not allow to change info of tickets.Only see info</h1>
         <table class="table">
             <thead>
                 <tr>
-
                     <th> № </th>
                     <th>Movie</th>
                     <th>Genre</th>
@@ -72,8 +80,40 @@
             <tbody>
                 @foreach (var ticket in usersArr)
                 {
+
                     <tr>
-                        <th> № </th>
+                        <td>@(indexU+1)</td>
+                        <td>@ticket.NameMovie</td>
+                        <td>@ticket.Genre</td>
+                        <td>@ticket.Rating</td>
+                        <td>@ticket.Price</td>
+                        <td>@ticket.KindM</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th> № </th>
+                    <th>Id</th>
+                    <th>Movie</th>
+                    <th>Genre</th>
+                    <th>Rating</th>
+                    <th>Price</th>
+                    <th>Kind of movie</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in usersArr)
+                {
+                    <tr>
+                        <td>@(indexA+1)</td>
                         <td>@ticket.Id</td>
                         <td>@ticket.NameMovie</td>
                         <td>@ticket.Genre</td>
@@ -87,13 +127,15 @@
                     </tr>
                 }
             </tbody>
-
         </table>
     }
 </body>
 
 
 @code {
+    int indexU = 0;
+    int indexA = 0;
+    string password;
     Ticket ticket = new Ticket();
     List<Ticket> usersArr = new List<Ticket>();
 
