@@ -3,61 +3,53 @@
 @using BlazorApp_firstProgram.Data
 @inject BlazorApp_firstProgram.IService.IServiceObj<Staff> staffService
 <body>
-    <h3>Staff DataBase</h3>
+    <h3>Our Staff in Cinema House</h3>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Input your password to have a permission(after press "ENTER"):</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="password" style="width:40%;" placeholder="Password" />
+        </div>
+    </div>
 
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Firstname:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="person.FirstName" style="width:40%;" placeholder="Firstname" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Lastname:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="person.LastName" style="width:40%;" placeholder="Lastname" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Who is she/he?:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="person.Roll" style="width:40%;" placeholder="Roll" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Rating:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="person.Rating" type="number" style="width:40%;" placeholder="Rating" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Age of person:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="person.Age" type="number" style="width:40%;" placeholder="Age" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4"></div>
-        <div class="col-nd-8">
-            <button class="btn btn-primary" @onclick="@(e=>Save())">Save</button>
-            <button class="btn btn-danger" @onclick="@(e=>Reset())" style="float:right">Reset</button>
-        </div>
-    </div>
-    @if (usersArr == null)
-    {
-        <h1>Sorry, we could not load this product because of an error.</h1>
-    }
-    else
-    {
+
+ @if (Service.ServiceUser.EqualPasswords(password) != true)
+ {
+<table class="table">
+    <thead>
+        <tr>
+
+            <th> № </th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Rating</th>
+            <th>Roll</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ticket in usersArr)
+        {
+            <tr>
+                <th> № </th>
+                <td>@ticket.Id</td>
+                <td>@ticket.FirstName</td>
+                <td>@ticket.LastName</td>
+                <td>@ticket.Rating</td>
+                <td>@ticket.Roll</td>
+                <td>@ticket.Age</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="@(e => Edit(@ticket.Id))">Edit</button>
+                    <button class="btn btn-danger" @onclick="@(e => Delete(@ticket.Id))" style="float:right">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ }
+ else
+ {
         <table class="table">
             <thead>
                 <tr>
@@ -82,19 +74,66 @@
                         <td>@ticket.Roll</td>
                         <td>@ticket.Age</td>
                         <td>
-                            <button class="btn btn-primary" @onclick="@(e=>Edit(@ticket.Id))">Edit</button>
-                            <button class="btn btn-danger" @onclick="@(e=>Delete(@ticket.Id))" style="float:right">Delete</button>
+                            <button class="btn btn-primary" @onclick="@(e => Edit(@ticket.Id))">Edit</button>
+                            <button class="btn btn-danger" @onclick="@(e => Delete(@ticket.Id))" style="float:right">Delete</button>
                         </td>
                     </tr>
                 }
             </tbody>
-
         </table>
-    }
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Firstname:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="person.FirstName" style="width:40%;" placeholder="Firstname" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Lastname:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="person.LastName" style="width:40%;" placeholder="Lastname" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Who is she/he?:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="person.Roll" style="width:40%;" placeholder="Roll" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Rating:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="person.Rating" type="number" style="width:40%;" placeholder="Rating" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Age of person:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="person.Age" type="number" style="width:40%;" placeholder="Age" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4"></div>
+            <div class="col-nd-8">
+                <button class="btn btn-primary" @onclick="@(e => Save())">Save</button>
+                <button class="btn btn-danger" @onclick="@(e => Reset())" style="float:right">Reset</button>
+            </div>
+        </div>
+ }
 </body>
 
 
 @code {
+    string password;
     Staff person = new Staff();
     List<Staff> usersArr = new List<Staff>();
 

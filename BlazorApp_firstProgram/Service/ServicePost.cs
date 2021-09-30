@@ -8,47 +8,46 @@ using System.Threading.Tasks;
 
 namespace BlazorApp_firstProgram.Service
 {
-    public class ServiceActor:IServiceObj<Actor>
+    public class ServicePost : IServiceObj<Post>
     {
         private MongoClient _mongoClient = null;
-        private IMongoCollection<Actor> _actorTable = null;
+        private IMongoCollection<Post> _postTable = null;
         private IMongoDatabase _database = null;
-
-        public ServiceActor()
+        public ServicePost()
         {
             _mongoClient = new MongoClient("mongodb://127.0.0.1:27017/");
             _database = _mongoClient.GetDatabase("CinemaDB");
-            _actorTable = _database.GetCollection<Actor>("actors");
+            _postTable = _database.GetCollection<Post>("posts");
         }
-
         public string Delete(string userId)
         {
-            _actorTable.DeleteOne(x => x.Id == userId);
+            _postTable.DeleteOne(x => x.Id == userId);
             return "Succsesfull deleted!";
         }
 
-        public Actor GetUser(string userId)
+        public Post GetUser(string userId)
         {
-            return _actorTable.Find(x => x.Id == userId).FirstOrDefault();
+            return _postTable.Find(x => x.Id == userId).FirstOrDefault();
+           
+        }
+        
+        public List<Post> GetUsers()
+        {
+            return _postTable.Find(FilterDefinition<Post>.Empty).ToList();
         }
 
-        public List<Actor> GetUsers()
+        public void SaveOrUpdate(Post post)
         {
-            return _actorTable.Find(FilterDefinition<Actor>.Empty).ToList();
-        }
-
-       
-        public void SaveOrUpdate(Actor actor)
-        {
-            var userObj = _actorTable.Find(x => x.Id == actor.Id).FirstOrDefault();
+            var userObj = _postTable.Find(x => x.Id == post.Id).FirstOrDefault();
             if (userObj == null)
             {
-                _actorTable.InsertOne(actor);
+                _postTable.InsertOne(post);
             }
             else
             {
-                _actorTable.ReplaceOne(x => x.Id == actor.Id, actor);
+                _postTable.ReplaceOne(x => x.Id == post.Id, post);
             }
         }
+       
     }
 }

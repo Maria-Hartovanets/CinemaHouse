@@ -35,6 +35,7 @@ namespace BlazorApp_firstProgram
             services.AddScoped<IServiceObj<Actor>, ServiceActor>();
             services.AddScoped<IServiceObj<Staff>, ServiceStaff>();
             services.AddScoped<IServiceObj<Ticket>, ServiceTicket>();
+            services.AddScoped<IServiceObj<Post>,ServicePost>();
 
         }
 

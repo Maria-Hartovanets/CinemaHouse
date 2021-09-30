@@ -4,7 +4,7 @@
 @using BlazorApp_firstProgram.Data
 @inject BlazorApp_firstProgram.IService.IServiceObj<Actor> actorService
 <body>
-    <h3>Actor DataBase</h3>
+    <h3>All actors in our DataBase</h3>
     <div class="row">
         <div class="col-nd-4">
             <label>Input your password to have a permission(after press "ENTER"):</label>
@@ -14,58 +14,10 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-nd-4">
-            <h3>This block is only for editing and adding new info:</h3>
-            <label>Firstname:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="person.FirstName" style="width:40%;" placeholder="Firstname" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Lastname:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="person.LastName" style="width:40%;" placeholder="Lastname" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Where is she/he from?:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="person.HomeTown" style="width:40%;" placeholder="HomeTown" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Her/his rating:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="person.Rating" type="number" style="width:40%;" placeholder="Rating" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>In how many movies he/she filmed?:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="person.CountOfMovie" type="number" style="width:40%;" placeholder="Movies" />
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-nd-4"></div>
-        <div class="col-nd-8">
-            <button class="btn btn-primary" @onclick="@(e=>Save())">Save</button>
-            <button class="btn btn-danger" @onclick="@(e=>Reset())" style="float:right">Reset</button>
-        </div>
-    </div>
+
     @if (Service.ServiceUser.EqualPasswords(password) != true)
     {
-        <h1>Sorry, your r not allow to change info of tickets.Only see info</h1>
+        <h4>Sorry, your r not allow to change info of tickets.Only see info</h4>
         <table class="table">
             <thead>
                 <tr>
@@ -129,8 +81,56 @@
                     </tr>
                 }
             </tbody>
-
         </table>
+        <div class="row">
+            <div class="col-nd-4">
+                <h3>This block is only for editing and adding new info:</h3>
+                <label>Firstname:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="person.FirstName" style="width:40%;" placeholder="Firstname" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Lastname:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="person.LastName" style="width:40%;" placeholder="Lastname" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Where is she/he from?:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="person.HomeTown" style="width:40%;" placeholder="HomeTown" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Her/his rating:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="person.Rating" type="number" style="width:40%;" placeholder="Rating" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>In how many movies he/she filmed?:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="person.CountOfMovie" type="number" style="width:40%;" placeholder="Movies" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-nd-4"></div>
+            <div class="col-nd-8">
+                <button class="btn btn-primary" @onclick="@(e=>Save())">Save</button>
+                <button class="btn btn-danger" @onclick="@(e=>Reset())" style="float:right">Reset</button>
+            </div>
+        </div>
     }
 </body>
 

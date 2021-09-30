@@ -37,6 +37,8 @@ namespace BlazorApp_firstProgram.Service
             return _ticketTable.Find(FilterDefinition<Ticket>.Empty).ToList();
         }
 
+      
+
         public void SaveOrUpdate(Ticket tickt)
         {
             var userObj = _ticketTable.Find(x => x.Id == tickt.Id).FirstOrDefault();

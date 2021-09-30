@@ -1,7 +1,7 @@
 ﻿@page "/users"
 @using BlazorApp_firstProgram.Data
 @inject BlazorApp_firstProgram.IService.IServiceObj<User> userService
-<h3>UsersDataBase</h3>
+<h3>UsersDataBase only for admins and staff</h3>
 
 <div class="row">
     <div class="col-nd-4">
@@ -15,7 +15,7 @@
 
 <div class="row">
     <div class="col-nd-4">
-        <h3>This block is only for editing and adding new info:</h3>
+        <h4>This block is only for editing and adding new info:</h4>
         <label>What's your firstname?:</label>
     </div>
     <div class="col-nd-8">

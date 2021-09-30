@@ -1,60 +1,99 @@
 ﻿@page "/actorsInfo"
 
+@using BlazorApp_firstProgram.Data
+@inject BlazorApp_firstProgram.IService.IServiceObj<Post> postService
 <head>
 
-    <title><h1><b>Actors Info</b></h1></title>
+    <title><h1><b>The bets Actors' in Cinema House Info:</b></h1></title>
 </head>
 <body>
-    <div class="row">
-        <div class="col-nd-4">
-            <label><b>1. Johnny Deph</b></label>
-        </div>
-        <div class="col-nd-8">
-            <p><img src="https://st.depositphotos.com/1814084/5074/i/600/depositphotos_50742529-stock-photo-johnny-depp.jpg" alt="Фото"></p>
-
-            <p style="float:left">
-                John Christopher Depp II (born June 9, 1963) is an American actor, producer, and musician.
-                He is the recipient of various accolades, including a Golden Globe Award and a Screen Actors Guild Award,
-                in addition to nominations for three Academy Awards and two British Academy Film Awards.
-                In 2003, Depp starred in the <a href="https://en.wikipedia.org/wiki/Walt_Disney_Pictures" target="_blank">Walt Disney Pictures</a>
-                adventure film <a href="https://en.wikipedia.org/wiki/Pirates_of_the_Caribbean:_The_Curse_of_the_Black_Pearl" target="_blank">Pirates of the Caribbean: The Curse of the Black Pearl</a>, which was a major box office success.
-                He earned widespread acclaim for his comic performance as pirate Captain Jack Sparrow, and received Academy Award, Golden Globe and BAFTA nominations 
-                and won a Screen Actor's Guild Award for Best Actor as well as an MTV Movie Award.
-                <a href="https://en.wikipedia.org/wiki/Johnny_Depp" target="_blank">More info there</a>
+    @foreach (var post in postArr)
+    {
+        <div class="centre">
+            <label><b>@post.TitlePost</b></label>
+            <p><img src="@post.Image" alt="Фото" /></p>
+            <p>@post.TextForPost</p>
+            <p>
+                <button id="close-CSS" @onclick="@(e=>LikedPost(post))"></button>
+                @post.Likes
             </p>
 
         </div>
-    </div>
 
+    }
     <div class="row">
         <div class="col-nd-4">
-            <label><b>2. Emilia Clarke</b></label>
+            <h3>Add post:</h3>
+            <label>Title:</label>
         </div>
         <div class="col-nd-8">
+            <input @bind="post.TitlePost" style="width:40%;" placeholder="Title" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Text about actor:</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="post.TextForPost" style="width:40%;" placeholder="Text there" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Image</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="post.Image" style="width:40%;" placeholder="link on image" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-nd-4"></div>
+        <div class="col-nd-8">
+            <button class="btn btn-primary" @onclick="@(e=>Save())">Save</button>
+            <button class="btn btn-danger" @onclick="@(e=>Reset())" style="float:right">Reset</button>
+
+        </div>
+    </div>
+
+    @*<div class="centre">
+            <label><b>1. Johnny Deph</b></label>
+            <p><img src="https://st.depositphotos.com/1814084/5074/i/600/depositphotos_50742529-stock-photo-johnny-depp.jpg" alt="Фото"></p>
+
+            <p>
+                John Christopher Depp II (born June 9, 1963) is an American actor, producer, and musician.
+                He is the recipient of various accolades, including a Golden Globe Award and a Screen Actors Guild Award,
+                in addition to nominations for three Academy Awards and two British Academy Film Awards.
+                In 2003, Depp starred in the Walt Disney Pictures  adventure film Pirates of the Caribbean: The Curse of the Black Pearl, which was a major box office success.
+                He earned widespread acclaim for his comic performance as pirate Captain Jack Sparrow, and received Academy Award, Golden Globe and BAFTA nominations
+                and won a Screen Actor's Guild Award for Best Actor as well as an MTV Movie Award.
+               
+            </p>
+
+        </div>
+
+
+        <div class="centre">
+            <label><b>2. Emilia Clarke</b></label>
             <p><img src="https://www.hollywoodreporter.com/wp-content/uploads/2021/06/GettyImages-1203587498-H-2021.jpg?w=681&h=383&crop=1" alt="Фото"></p>
 
-            <p style="float:left">
+            <p>
                 Emilia Isobel Euphemia Rose Clarke (born 23 October 1986) is an English actress. She studied at the Drama Centre London, appearing in a number of stage productions.
                 Her television debut was a guest appearance in the BBC One medical soap opera Doctors in 2009. The following year, she was named as one of the "UK Stars of Tomorrow" by
                 Screen International magazine for her role in the TV film Triassic Attack (2010). Clarke had her breakthrough
-                role as Daenerys Targaryen in the <a href="https://en.wikipedia.org/wiki/HBO" target="_blank">HBO</a> epic fantasy television series 
-                <a href="https://en.wikipedia.org/wiki/Game_of_Thrones" target="_blank">Game of Thrones (2011–2019)</a>.
+                role as Daenerys Targaryen in the HBO epic fantasy television series
+                Game of Thrones (2011–2019).
                 The role garnered her international recognition and several accolades, including four Emmy Award nominations.
-                She's also well-know in movie <a href="https://en.wikipedia.org/wiki/Me_Before_You_(film)" target="_blank">Me before you.</a>
-                <a href="https://en.wikipedia.org/wiki/Emilia_Clarke" target="_blank"> More info there</a>
-</p>
+                She's also well-know in movie Me before you.
+                
+            </p>
 
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-nd-4">
+        <div class="centre">
             <label><b>3. Sebastian Stan</b></label>
-        </div>
-        <div class="col-nd-8">
             <p><img src="https://s.abcnews.com/images/GMA/210812_gma_digital_sebastian_stan_hpMain_16x9_992.jpg" alt="Фото"></p>
 
-            <p style="float:left">
+            <p>
                 Sebastian Stan (born August 13, 1982) is a Romanian-American actor.[1] Stan gained wide recognition for his role as Bucky Barnes / Winter Soldier in the
                 <a href="https://en.wikipedia.org/wiki/Marvel_Cinematic_Universe" target="_blank">Marvel Cinematic Universe</a>,
                 beginning with 2011's Captain America: The First Avenger. He later returned in Captain America: The Winter Soldier (2014), and went on to star in Ant-Man (2015),
@@ -63,10 +102,50 @@
                 <a href="https://en.wikipedia.org/wiki/Sebastian_Stan" target="_blank">More info there</a>
             </p>
 
-        </div>
-    </div>
+        </div>*@
 </body>
 
 @code {
 
+    string password;
+    Post post = new Post();
+    List<Post> postArr = new List<Post>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        GetUsers();
+    }
+    private void GetUsers()
+    {
+        postArr = postService.GetUsers();
+    }
+    private void Save()
+    {
+        postService.SaveOrUpdate(post);
+        Reset();
+        GetUsers();
+    }
+    private void Reset()
+    {
+        post = new Post();
+    }
+    private void Edit(string userId)
+    {
+        post = postService.GetUser(userId);
+    }
+    private void Delete(string userId)
+    {
+        postService.Delete(userId);
+        GetUsers();
+    }
+    private void LikedPost(Post post)
+    {
+        //postService.SaveInfoLike(post);
+
+        post.AddLike();
+        postService.SaveOrUpdate(post);
+        GetUsers();
+
+
+    }
 }

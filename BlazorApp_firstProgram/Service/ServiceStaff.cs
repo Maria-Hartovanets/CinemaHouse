@@ -37,6 +37,7 @@ namespace BlazorApp_firstProgram.Service
             return _staffTable.Find(FilterDefinition<Staff>.Empty).ToList();
         }
 
+       
         public void SaveOrUpdate(Staff person)
         {
             var userObj = _staffTable.Find(x => x.Id == person.Id).FirstOrDefault();

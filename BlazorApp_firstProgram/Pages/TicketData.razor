@@ -2,7 +2,7 @@
 @using BlazorApp_firstProgram.Data
 @inject BlazorApp_firstProgram.IService.IServiceObj<Ticket> ticketService
 <body>
-    <h3>Ticket DataBase</h3>
+    <h3>All Tickets:</h3>
     <div class="row">
         <div class="col-nd-4">
             <label>Input your password to have a permission(after press "ENTER"):</label>
@@ -12,60 +12,9 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-nd-4">
-            <h3>This block is only for editing and adding new info:</h3>
-            <label>Movie:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="ticket.NameMovie" style="width:40%;" placeholder="Movie" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Genre:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="ticket.Genre" style="width:40%;" placeholder="Genre" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Kind of movie:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="ticket.KindM" style="width:40%;" placeholder="Kind" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Rating of the movie:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="ticket.Rating" type="number" style="width:40%;" placeholder="Rating" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Price:</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="ticket.Price" type="number" style="width:40%;" placeholder="Price" />
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-nd-4"></div>
-        <div class="col-nd-8">
-            <button class="btn btn-primary" @onclick="@(e=>Save())">Save</button>
-            <button class="btn btn-danger" @onclick="@(e=>Reset())" style="float:right">Reset</button>
-        </div>
-    </div>
-
-
     @if (Service.ServiceUser.EqualPasswords(password) != true)
     {
-        <h1>Sorry, your r not allow to change info of tickets.Only see info</h1>
+        <h4>Sorry, your r not allow to change info of tickets.Only see info</h4>
         <table class="table">
             <thead>
                 <tr>
@@ -128,7 +77,57 @@
                 }
             </tbody>
         </table>
+        <div class="row">
+            <div class="col-nd-4">
+                <h3>This block is only for editing and adding new info:</h3>
+                <label>Movie:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="ticket.NameMovie" style="width:40%;" placeholder="Movie" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Genre:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="ticket.Genre" style="width:40%;" placeholder="Genre" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Kind of movie:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="ticket.KindM" style="width:40%;" placeholder="Kind" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Rating of the movie:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="ticket.Rating" type="number" style="width:40%;" placeholder="Rating" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-nd-4">
+                <label>Price:</label>
+            </div>
+            <div class="col-nd-8">
+                <input @bind="ticket.Price" type="number" style="width:40%;" placeholder="Price" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-nd-4"></div>
+            <div class="col-nd-8">
+                <button class="btn btn-primary" @onclick="@(e=>Save())">Save</button>
+                <button class="btn btn-danger" @onclick="@(e=>Reset())" style="float:right">Reset</button>
+            </div>
+        </div>
     }
+
 </body>
 
 
@@ -161,6 +160,7 @@
     {
         ticket = ticketService.GetUser(userId);
     }
+   
     private void Delete(string userId)
     {
         ticketService.Delete(userId);

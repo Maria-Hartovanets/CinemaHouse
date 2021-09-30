@@ -12,5 +12,6 @@ namespace BlazorApp_firstProgram.IService
         T GetUser(string userId);
         List<T> GetUsers();
         string Delete(string userId);
+       
     }
 }
