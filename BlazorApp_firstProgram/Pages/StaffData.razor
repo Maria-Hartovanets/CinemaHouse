@@ -2,20 +2,14 @@
 
 @using BlazorApp_firstProgram.Data
 @inject BlazorApp_firstProgram.IService.IServiceObj<Staff> staffService
+@inject ModelAccount.Password currentPassword
 <body>
     <h3>Our Staff in Cinema House</h3>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Input your password to have a permission(after press "ENTER"):</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="password" style="width:40%;" placeholder="Password" />
-        </div>
-    </div>
+ 
 
-
- @if (Service.ServiceUser.EqualPasswords(password) != true)
+ @if (currentPassword.PasswordInputed!="12345")
  {
+ <h4>Dear sir/madam, let's introduce u to our family in Cinema House</h4>
 <table class="table">
     <thead>
         <tr>
@@ -50,6 +44,7 @@
  }
  else
  {
+ <h4>Hello admin,</h4>
         <table class="table">
             <thead>
                 <tr>

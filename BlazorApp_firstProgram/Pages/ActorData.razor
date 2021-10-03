@@ -3,21 +3,14 @@
 
 @using BlazorApp_firstProgram.Data
 @inject BlazorApp_firstProgram.IService.IServiceObj<Actor> actorService
+@inject ModelAccount.Password currentPassword
 <body>
-    <h3>All actors in our DataBase</h3>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Input your password to have a permission(after press "ENTER"):</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="password" style="width:40%;" placeholder="Password" />
-        </div>
-    </div>
+    <h3>The best actor for Cinema House ever</h3>
 
 
-    @if (Service.ServiceUser.EqualPasswords(password) != true)
+    @if (currentPassword.PasswordInputed != "12345")
     {
-        <h4>Sorry, your r not allow to change info of tickets.Only see info</h4>
+        <h4>Dear sir/madam, there u can see info of the best actors</h4>
         <table class="table">
             <thead>
                 <tr>
@@ -34,8 +27,9 @@
             <tbody>
                 @foreach (var person in usersArr)
                 {
+                    
                     <tr>
-                        <th> @(indexU+1) </th>
+                        <td>@indexU</td>
                         <td>@person.FirstName</td>
                         <td>@person.LastName</td>
                         <td>@person.Rating</td>
@@ -50,6 +44,7 @@
     }
     else
     {
+        <h4>Dear admin, there u can change all info of actors</h4>
         <table class="table">
             <thead>
                 <tr>
@@ -66,19 +61,20 @@
             <tbody>
                 @foreach (var person in usersArr)
                 {
-                    <tr>
-                        <th> @(indexA+1) </th>
-                        <td>@person.Id</td>
-                        <td>@person.FirstName</td>
-                        <td>@person.LastName</td>
-                        <td>@person.Rating</td>
-                        <td>@person.HomeTown</td>
-                        <td>@person.CountOfMovie</td>
-                        <td>
-                            <button class="btn btn-primary" @onclick="@(e=>Edit(@person.Id))">Edit</button>
-                            <button class="btn btn-danger" @onclick="@(e=>Delete(@person.Id))" style="float:right">Delete</button>
-                        </td>
-                    </tr>
+                    
+                <tr>
+                    <td>@indexU</td>
+                    <td>@person.Id</td>
+                    <td>@person.FirstName</td>
+                    <td>@person.LastName</td>
+                    <td>@person.Rating</td>
+                    <td>@person.HomeTown</td>
+                    <td>@person.CountOfMovie</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="@(e=>Edit(@person.Id))">Edit</button>
+                        <button class="btn btn-danger" @onclick="@(e=>Delete(@person.Id))" style="float:right">Delete</button>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -138,7 +134,7 @@
 @code {
     int indexA = 0;
     int indexU = 0;
-    string password;
+
     Actor person = new Actor();
     List<Actor> usersArr = new List<Actor>();
 
@@ -146,6 +142,7 @@
     {
         GetUsers();
     }
+    
     private void GetUsers()
     {
         usersArr = actorService.GetUsers();

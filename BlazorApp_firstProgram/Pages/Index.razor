@@ -1,8 +1,22 @@
 ﻿@page "/"
-
+@using BlazorApp_firstProgram.ModelAccount
+@inject BlazorApp_firstProgram.ModelAccount.Password currentPassword
 <h1>Dear Sir/Madam,</h1>
 
 <h4>We're glad to see you on your web-site. Enjoy you time during being here!</h4>
 <p><img src="https://english-grammar.biz/wp-content/uploads/2016/08/private-cinema.jpg" alt="Фото"></p>
+<p>
+    <div class="row">
+        <div class="col-nd-4">
+            <label>Input your password to <b>have a permission of ADMIN</b>(after press "ENTER"):</label>
+        </div>
+        <div class="col-nd-8">
+            <input @bind="currentPassword.PasswordInputed" style="width:40%;" placeholder="Password" />
+        </div>
+    </div>
+</p>
 
 <SurveyPrompt Title="How is cinema working? Do you enjoy being here?" />
+@code{
+
+}

@@ -1,20 +1,13 @@
 ﻿@page "/tickets"
 @using BlazorApp_firstProgram.Data
 @inject BlazorApp_firstProgram.IService.IServiceObj<Ticket> ticketService
+@inject ModelAccount.Password currentPassword
 <body>
     <h3>All Tickets:</h3>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Input your password to have a permission(after press "ENTER"):</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="password" style="width:40%;" placeholder="Password" />
-        </div>
-    </div>
 
-    @if (Service.ServiceUser.EqualPasswords(password) != true)
+    @if (currentPassword.PasswordInputed != "12345")
     {
-        <h4>Sorry, your r not allow to change info of tickets.Only see info</h4>
+        <h4>Wellcome to see all info of tickets in <b>CINEMA HOUSE</b></h4>
         <table class="table">
             <thead>
                 <tr>
@@ -45,6 +38,7 @@
     }
     else
     {
+        <h4>Hello admin, change some info in data base if smth is wrong/or just look thought the info of tickets</h4>
         <table class="table">
             <thead>
                 <tr>
@@ -160,7 +154,7 @@
     {
         ticket = ticketService.GetUser(userId);
     }
-   
+
     private void Delete(string userId)
     {
         ticketService.Delete(userId);
