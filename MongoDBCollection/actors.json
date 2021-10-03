@@ -1,0 +1,22 @@
+[{
+  "_id": "6145cb57345f6fecf283767e",
+  "FirstName": "Emilia",
+  "LastName": "Clarke",
+  "HomeTown": "London",
+  "CountOfMovie": 6,
+  "Rating": 9
+},{
+  "_id": "6159fb60354e00ccd1657fee",
+  "FirstName": "Maria",
+  "LastName": "Hartov",
+  "HomeTown": "Lviv",
+  "CountOfMovie": 3,
+  "Rating": 9
+},{
+  "_id": "615a05fb3c01a977932dd7e3",
+  "FirstName": "Johny ",
+  "LastName": "Depp",
+  "HomeTown": "Hollywood",
+  "CountOfMovie": 23,
+  "Rating": 10
+}]

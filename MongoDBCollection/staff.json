@@ -1,0 +1,22 @@
+[{
+  "_id": "614787d9d54b63cda9325112",
+  "FirstName": "Maria",
+  "LastName": "Shebchenko",
+  "Age": 23,
+  "Roll": "admin",
+  "Rating": 8
+},{
+  "_id": "615a06573c01a977932dd7fe",
+  "FirstName": "Yura",
+  "LastName": "Hart",
+  "Age": 16,
+  "Roll": "Director",
+  "Rating": 10
+},{
+  "_id": "615a066d3c01a977932dd800",
+  "FirstName": "Nadia",
+  "LastName": "Svechkorenko",
+  "Age": 35,
+  "Roll": "manager",
+  "Rating": 8
+}]
