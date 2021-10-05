@@ -14,7 +14,7 @@
     <thead>
         <tr>
 
-            <th> № </th>
+            <th>  </th>
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Rating</th>
@@ -26,17 +26,14 @@
         @foreach (var ticket in usersArr)
         {
             <tr>
-                <th> № </th>
-                <td>@ticket.Id</td>
+                <th> - </th>
+                
                 <td>@ticket.FirstName</td>
                 <td>@ticket.LastName</td>
                 <td>@ticket.Rating</td>
                 <td>@ticket.Roll</td>
                 <td>@ticket.Age</td>
-                <td>
-                    <button class="btn btn-primary" @onclick="@(e => Edit(@ticket.Id))">Edit</button>
-                    <button class="btn btn-danger" @onclick="@(e => Delete(@ticket.Id))" style="float:right">Delete</button>
-                </td>
+               
             </tr>
         }
     </tbody>
@@ -49,7 +46,8 @@
             <thead>
                 <tr>
 
-                    <th> № </th>
+                    <th>  </th>
+                    <th>Id</th>
                     <th>Firstname</th>
                     <th>Lastname</th>
                     <th>Rating</th>
@@ -61,7 +59,7 @@
                 @foreach (var ticket in usersArr)
                 {
                     <tr>
-                        <th> № </th>
+                        <th>  </th>
                         <td>@ticket.Id</td>
                         <td>@ticket.FirstName</td>
                         <td>@ticket.LastName</td>

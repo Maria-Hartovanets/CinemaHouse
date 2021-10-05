@@ -1,0 +1,15 @@
+[{
+  "_id": "6145cc1cf90cc043b53ba754",
+  "NameMovie": "cruella",
+  "Genre": "thriller",
+  "Rating": 44,
+  "KindM": "3D",
+  "Price": 120
+},{
+  "_id": "6145cc36f90cc043b53ba755",
+  "NameMovie": "Fast furious",
+  "Genre": "thriller",
+  "Rating": 9,
+  "KindM": "4DX",
+  "Price": 150
+}]

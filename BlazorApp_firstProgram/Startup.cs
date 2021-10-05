@@ -38,6 +38,7 @@ namespace BlazorApp_firstProgram
             services.AddScoped<IServiceObj<Ticket>, ServiceTicket>();
             services.AddScoped<IServiceObj<Post>,ServicePost>();
             services.AddScoped<Password>();
+            services.AddScoped<User>();
 
         }
 

@@ -11,7 +11,7 @@ namespace BlazorApp_firstProgram.Data
         public string firstname { get; set; } = "";
         public string lastname { get; set; } = "";
         public int age { get; set; } = 0;
-        public string hometown { get; set; } = "";
+        public string Email { get; set; } = "";
         public string Password { get; set; } = "";
 
     }

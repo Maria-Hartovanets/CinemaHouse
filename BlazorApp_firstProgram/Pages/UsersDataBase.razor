@@ -1,17 +1,8 @@
 ﻿@page "/users"
 @using BlazorApp_firstProgram.Data
 @inject BlazorApp_firstProgram.IService.IServiceObj<User> userService
-<h3>UsersDataBase only for admins and staff</h3>
-
-<div class="row">
-    <div class="col-nd-4">
-        <label>Your password?:</label>
-    </div>
-    <div class="col-nd-8">
-        <input @bind="user.Password" type="number" style="width:40%;" placeholder="Password" />
-    </div>
-</div>
-
+@inject ModelAccount.Password currentPassword
+<h3>Please log in</h3>
 
 <div class="row">
     <div class="col-nd-4">
@@ -32,20 +23,29 @@
 </div>
 <div class="row">
     <div class="col-nd-4">
-        <label>Where r u from?</label>
-    </div>
-    <div class="col-nd-8">
-        <input @bind="user.hometown" style="width:40%;" placeholder="Hometown" />
-    </div>
-</div>
-<div class="row">
-    <div class="col-nd-4">
         <label>How old r u?:</label>
     </div>
     <div class="col-nd-8">
         <input @bind="user.age" type="number" style="width:40%;" placeholder="Age" />
     </div>
 </div>
+<div class="row">
+    <div class="col-nd-4">
+        <label>Your email</label>
+    </div>
+    <div class="col-nd-8">
+        <input @bind="user.Email" style="width:40%;" placeholder="Email" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-nd-4">
+        <label>Your password:</label>
+    </div>
+    <div class="col-nd-8">
+        <input @bind="user.Password" type="number" style="width:40%;" placeholder="Password" />
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-nd-4"></div>
@@ -63,6 +63,7 @@
     User user = new User();
     List<User> usersArr = new List<User>();
 
+
     protected override async Task OnInitializedAsync()
     {
         GetUsers();
@@ -73,6 +74,7 @@
     }
     private void Save()
     {
+        
         userService.SaveOrUpdate(user);
         Reset();
         GetUsers();

@@ -32,7 +32,7 @@ namespace BlazorApp_firstProgram.ModelAccount
 
         public EditUser(User user)
         {
-            Hometown = user.hometown;
+            Hometown = user.Email;
             Id = user.Id;
             Age = user.age;
             FirstName = user.firstname;

@@ -1,22 +1,71 @@
 ﻿@page "/"
 @using BlazorApp_firstProgram.ModelAccount
+@using BlazorApp_firstProgram.Data; 
 @inject BlazorApp_firstProgram.ModelAccount.Password currentPassword
-<h1>Dear Sir/Madam,</h1>
-
-<h4>We're glad to see you on your web-site. Enjoy you time during being here!</h4>
-<p><img src="https://english-grammar.biz/wp-content/uploads/2016/08/private-cinema.jpg" alt="Фото"></p>
+@inject BlazorApp_firstProgram.IService.IServiceObj<User> userService
+@if (currentPassword.PasswordInputed == "12345")
+{
+    <h1>Dear Admin,</h1>
+}
+else if (FindUser(userEmail))
+{
+    <h1>Dear @userForTitle.firstname @userForTitle.lastname,</h1>
+}
+else
+{
+     <h1>Dear Sir\Madam,</h1>
+}
 <p>
-    <div class="row">
-        <div class="col-nd-4">
-            <label>Input your password to <b>have a permission of ADMIN</b>(after press "ENTER"):</label>
-        </div>
-        <div class="col-nd-8">
-            <input @bind="currentPassword.PasswordInputed" style="width:40%;" placeholder="Password" />
-        </div>
-    </div>
+    <div class="centre">
+        <h4>We're glad to see you on your web-site. Enjoy you time during being here!</h4>
+<p><img src="https://english-grammar.biz/wp-content/uploads/2016/08/private-cinema.jpg" alt="Фото"></p>
+</div>
 </p>
+<div class="centre">
+    <p> <label>Login to <b>have a permission of ADMIN/user</b>(after press "ENTER"):</label></p>
 
-<SurveyPrompt Title="How is cinema working? Do you enjoy being here?" />
+    <p><input @bind="userEmail" style="width:40%;" placeholder="email" /></p>
+
+    <p><input @bind="currentPassword.PasswordInputed" style="width:40%;" placeholder="password" /></p>
+    <button class="btn btn-primary" @onclick="@(e=>FindUser(userEmail))">Log in</button>
+    <label>@message</label>
+</div>
+
+
+<SurveyPrompt Title="How is cinema working? Do your enjoy being here?" />
 @code{
+    User user = new User();
+    User userForTitle;
+    List<User> usersArr = new List<User>();
+    string userEmail = "";
+    string message = "";
 
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        GetUsers();
+    }
+    private void GetUsers()
+    {
+        usersArr = userService.GetUsers();
+    }
+    private bool FindUser(string userE)
+    {
+        bool result=false;
+        string passTemp = currentPassword.PasswordInputed;
+        message = "Sorry u wasnot register yet or not correct passwor/login!";
+
+        foreach(var userTemp in usersArr)
+        {
+            if (userTemp.Email == userEmail & userTemp.Password==passTemp)
+            {
+                userForTitle = userTemp;
+                message = "Thanks!";
+                result = true;
+            }
+
+        }
+        return result;
+    }
 }

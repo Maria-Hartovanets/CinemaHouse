@@ -12,8 +12,7 @@ namespace BlazorApp_firstProgram.Data
         public string TextForPost { get; set; } = "";
         public string Image { get; set; } = "";
         public int Likes { get; set; } = 0;
-        public string User { get; set; } = "";
-
+        
         public void AddLike()
         {
             Likes += 1;

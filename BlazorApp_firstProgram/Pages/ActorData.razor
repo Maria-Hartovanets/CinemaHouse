@@ -4,6 +4,7 @@
 @using BlazorApp_firstProgram.Data
 @inject BlazorApp_firstProgram.IService.IServiceObj<Actor> actorService
 @inject ModelAccount.Password currentPassword
+
 <body>
     <h3>The best actor for Cinema House ever</h3>
 
@@ -15,7 +16,7 @@
             <thead>
                 <tr>
 
-                    <th> № </th>
+                    <th>  </th>
 
                     <th>Firstname</th>
                     <th>Lastname</th>
@@ -27,9 +28,9 @@
             <tbody>
                 @foreach (var person in usersArr)
                 {
-                    
+
                     <tr>
-                        <td>@indexU</td>
+                        <td>-</td>
                         <td>@person.FirstName</td>
                         <td>@person.LastName</td>
                         <td>@person.Rating</td>
@@ -61,20 +62,20 @@
             <tbody>
                 @foreach (var person in usersArr)
                 {
-                    
-                <tr>
-                    <td>@indexU</td>
-                    <td>@person.Id</td>
-                    <td>@person.FirstName</td>
-                    <td>@person.LastName</td>
-                    <td>@person.Rating</td>
-                    <td>@person.HomeTown</td>
-                    <td>@person.CountOfMovie</td>
-                    <td>
-                        <button class="btn btn-primary" @onclick="@(e=>Edit(@person.Id))">Edit</button>
-                        <button class="btn btn-danger" @onclick="@(e=>Delete(@person.Id))" style="float:right">Delete</button>
-                    </td>
-                </tr>
+
+                    <tr>
+                        <td>-</td>
+                        <td>@person.Id</td>
+                        <td>@person.FirstName</td>
+                        <td>@person.LastName</td>
+                        <td>@person.Rating</td>
+                        <td>@person.HomeTown</td>
+                        <td>@person.CountOfMovie</td>
+                        <td>
+                            <button class="btn btn-primary" @onclick="@(e=>Edit(@person.Id))">Edit</button>
+                            <button class="btn btn-danger" @onclick="@(e=>Delete(@person.Id))" style="float:right">Delete</button>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
@@ -132,8 +133,7 @@
 
 
 @code {
-    int indexA = 0;
-    int indexU = 0;
+   
 
     Actor person = new Actor();
     List<Actor> usersArr = new List<Actor>();
@@ -142,7 +142,7 @@
     {
         GetUsers();
     }
-    
+
     private void GetUsers()
     {
         usersArr = actorService.GetUsers();

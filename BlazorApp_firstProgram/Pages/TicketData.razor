@@ -11,7 +11,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th> № </th>
+                    <th>  </th>
                     <th>Movie</th>
                     <th>Genre</th>
                     <th>Rating</th>
@@ -24,7 +24,7 @@
                 {
 
                     <tr>
-                        <td>@(indexU+1)</td>
+                        <td>-</td>
                         <td>@ticket.NameMovie</td>
                         <td>@ticket.Genre</td>
                         <td>@ticket.Rating</td>
@@ -43,7 +43,7 @@
             <thead>
                 <tr>
 
-                    <th> № </th>
+                    <th>  </th>
                     <th>Id</th>
                     <th>Movie</th>
                     <th>Genre</th>
@@ -56,7 +56,7 @@
                 @foreach (var ticket in usersArr)
                 {
                     <tr>
-                        <td>@(indexA+1)</td>
+                        <td>-</td>
                         <td>@ticket.Id</td>
                         <td>@ticket.NameMovie</td>
                         <td>@ticket.Genre</td>
@@ -126,8 +126,6 @@
 
 
 @code {
-    int indexU = 0;
-    int indexA = 0;
     string password;
     Ticket ticket = new Ticket();
     List<Ticket> usersArr = new List<Ticket>();
