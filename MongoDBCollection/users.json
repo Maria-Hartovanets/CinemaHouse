@@ -1,29 +1,22 @@
 [{
-  "_id": "6145b8f9780d77a6f529ae23",
-  "firstname": "Nadia",
-  "lastname": "Sanchan",
-  "age": 43,
-  "hometown": "Lviv",
-  "Password": "12345"
-},{
-  "_id": "6145b9622c5c2ade19f957af",
+  "_id": "615c3d351c0dac6c942617b7",
   "firstname": "Maria",
   "lastname": "Hartovanets",
   "age": 19,
-  "hometown": "lviv",
-  "Password": ""
+  "Email": "mariahrtv@gmail.com",
+  "Password": "1234"
 },{
-  "_id": "6146f146cf11f0d4157622a6",
+  "_id": "615c3d501c0dac6c942617b8",
+  "firstname": "Nadia",
+  "lastname": "Svechkorenko",
+  "age": 40,
+  "Email": "nadiasvech@gmail.com",
+  "Password": "1234"
+},{
+  "_id": "615c3d761c0dac6c942617ba",
   "firstname": "Sofia",
-  "lastname": "Matviiv",
-  "age": 20,
-  "hometown": "Lviv",
-  "Password": "11111"
-},{
-  "_id": "615a06e03c01a977932dd82e",
-  "firstname": "Karina",
-  "lastname": "Belan",
-  "age": 19,
-  "hometown": "Kyiv",
-  "Password": ""
+  "lastname": "Paslavska",
+  "age": 14,
+  "Email": "sofiapas@gmail.com",
+  "Password": "1111"
 }]
