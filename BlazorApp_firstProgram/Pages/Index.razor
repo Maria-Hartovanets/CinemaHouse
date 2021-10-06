@@ -5,11 +5,11 @@
 @inject BlazorApp_firstProgram.IService.IServiceObj<User> userService
 @if (currentPassword.PasswordInputed == "12345")
 {
-    <h1>Dear Admin,</h1>
+    <h1>Hello Admin,</h1>
 }
 else if (FindUser(userEmail))
 {
-    <h1>Dear @userForTitle.firstname @userForTitle.lastname,</h1>
+    <h1>Wellcome back, @userForTitle.firstname @userForTitle.lastname,</h1>
 }
 else
 {
@@ -31,8 +31,6 @@ else
     <label>@message</label>
 </div>
 
-
-<SurveyPrompt Title="How is cinema working? Do your enjoy being here?" />
 @code{
     User user = new User();
     User userForTitle;
