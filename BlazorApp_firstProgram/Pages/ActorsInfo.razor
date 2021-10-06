@@ -14,11 +14,20 @@
         <p><img src="@post.Image" alt="Фото" /></p>
         <p>@post.TextForPost</p>
         <p>
-            <button id="close-CSS" @onclick="@(e => LikedPost(post))"></button>
-            @post.Likes
-       
-       
-        <button class="btn btn-danger" @onclick="@(e=>Delete(@post.Id))" style="float:right">Delete</button>
+            @if (counterClickLike % 2 == 0)
+            {
+                <button id="close-CSS" @onclick="@(e => UnLikedPost(post))"></button>
+                @post.Likes
+            }
+            else
+            {
+                <button id="close-CSS" @onclick="@(e => LikedPost(post))"></button>
+                @post.Likes
+            }
+
+
+
+            <button class="btn btn-danger" @onclick="@(e=>Delete(@post.Id))" style="float:right">Delete</button>
         </p>
     </div>
 
@@ -63,6 +72,7 @@
     string password;
     Post post = new Post();
     List<Post> postArr = new List<Post>();
+    int counterClickLike = 1;
 
     protected override async Task OnInitializedAsync()
     {
@@ -72,7 +82,7 @@
     }
     private void GetUsers()
     {
-        
+
         postArr = postService.GetUsers();
     }
     private void Save()
@@ -98,10 +108,18 @@
     private void LikedPost(Post post)
     {
         //postService.SaveInfoLike(post);
-
+        ++counterClickLike;
         post.AddLike();
         postService.SaveOrUpdate(post);
         GetUsers();
     }
-   
+    private void UnLikedPost(Post post)
+    {
+        //postService.SaveInfoLike(post);
+        --counterClickLike;
+        post.AddUnLike();
+        postService.SaveOrUpdate(post);
+        GetUsers();
+    }
+
 }

@@ -17,5 +17,9 @@ namespace BlazorApp_firstProgram.Data
         {
             Likes += 1;
         }
+        public void AddUnLike()
+        {
+            Likes -= 1;
+        }
     }
 }
