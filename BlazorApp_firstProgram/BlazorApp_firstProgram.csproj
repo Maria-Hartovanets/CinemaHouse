@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.13.1" />
+    <PackageReference Include="Neo4j.Driver" Version="4.3.2" />
+    <PackageReference Include="Neo4jClient" Version="4.1.18" />
   </ItemGroup>
 
   <ItemGroup>
