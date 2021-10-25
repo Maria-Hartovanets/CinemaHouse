@@ -1,5 +1,4 @@
 ﻿using BlazorApp_firstProgram.Data;
-using BlazorApp_firstProgram.IService.Neo4j;
 using MongoDB.Driver;
 using Neo4jClient;
 using Neo4jClient.Cypher;
@@ -9,9 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorApp_firstProgram.Service.Neo4j
+namespace BlazorApp_firstProgram.Neo4jService
 {
-    public class Person
+    public class Person1
     {
 
         [JsonProperty(PropertyName = "userId")]
@@ -20,17 +19,17 @@ namespace BlazorApp_firstProgram.Service.Neo4j
 
     public class ServiceUserNeo4j
     {
-        private MongoClient _mongoClient = null;
-        private IMongoCollection<User> _userTable = null;
-        private IMongoDatabase _database = null;
+        //private MongoClient _mongoClient = null;
+        //private IMongoCollection<User> _userTable = null;
+        //private IMongoDatabase _database = null;
         GraphClient client = null;
         IServiceUserNeo4j graph = null;
 
         public ServiceUserNeo4j()
         {
-            _mongoClient = new MongoClient("mongodb://127.0.0.1:27017/");
-            _database = _mongoClient.GetDatabase("CinemaDB");
-            _userTable = _database.GetCollection<User>("users");
+            //_mongoClient = new MongoClient("mongodb://127.0.0.1:27017/");
+            //_database = _mongoClient.GetDatabase("CinemaDB");
+            //_userTable = _database.GetCollection<User>("users");
             client = new GraphClient(new Uri("http://localhost:7874/GraphDB/dataUser/"), "User", "Password");
             graph = new IServiceUserNeo4j();
             client.ConnectAsync();
@@ -40,8 +39,8 @@ namespace BlazorApp_firstProgram.Service.Neo4j
         {
             int a = graph.PathLength("6156dcfb04479cf81e4c9662", "6154ccec9904cf027a0729d2");
             var path = client.Cypher
-                            .Match("(u1:Person {userId: '6156dcfb04479cf81e4c9662'} )",
-                                    "(u2: Person { userId: '6154ccec9904cf027a0729d2'})",
+                            .Match("(u1:Person1 {userId: '6156dcfb04479cf81e4c9662'} )",
+                                    "(u2: Person1 { userId: '6154ccec9904cf027a0729d2'})",
                                     "p = shortestPath((u1) -[:Following *]->(u2))")
                             .Return(p => new
                             {
