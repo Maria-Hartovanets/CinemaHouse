@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlazorApp_firstProgram.ModelAccount;
-using BlazorApp_firstProgram.IService.Neo4j;
+using BlazorApp_firstProgram.Neo4jService;
 
 namespace BlazorApp_firstProgram
 {
@@ -38,7 +38,7 @@ namespace BlazorApp_firstProgram
             services.AddScoped<IServiceObj<Staff>, ServiceStaff>();
             services.AddScoped<IServiceObj<Ticket>, ServiceTicket>();
             services.AddScoped<IServiceObj<Post>,ServicePost>();
-            services.AddScoped<IServiceUserNeo4j>();
+            services.AddScoped<ServiceNeo4j>();
             services.AddScoped<Password>();
             services.AddScoped<User>();
 

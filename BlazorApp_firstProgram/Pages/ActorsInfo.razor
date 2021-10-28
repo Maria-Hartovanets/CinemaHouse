@@ -2,6 +2,8 @@
 
 @using BlazorApp_firstProgram.Data
 @inject BlazorApp_firstProgram.IService.IServiceObj<Post> postService
+@inject Neo4jService.ServiceNeo4j userNeo4jService
+@inject BlazorApp_firstProgram.Data.User currentUser
 <head>
 
     <title><h1><b>The bets Actors' in Cinema House Info:</b></h1></title>
@@ -9,27 +11,36 @@
 <body>
     @foreach (var post in postArr)
     {
-    <div class="centre">
-        <label><b>@post.TitlePost</b></label>
-        <p><img src="@post.Image" alt="Фото" /></p>
-        <p>@post.TextForPost</p>
-        <p>
-            @if (counterClickLike % 2 == 0)
-            {
-                <button id="close-CSS" @onclick="@(e => UnLikedPost(post))"></button>
-                @post.Likes
-            }
-            else
-            {
-                <button id="close-CSS" @onclick="@(e => LikedPost(post))"></button>
-                @post.Likes
-            }
+        <div class="centre">
+            <label><b>@post.TitlePost</b></label>
+            <p><img src="@post.Image" alt="Фото" /></p>
+            <p>@post.TextForPost</p>
+            <p>
+                @if (MethodWithNeo4jUserPost(post))
+                {
+                    MethodWithNeo4jUnLike(post);
+                }
+                else
+                {
+                    MethodWithNeo4jLike(post);
+                }
+                @if (counterClickLike % 2 == 0)
+                {
+                    <button id="close-CSS" @onclick="@(e => UnLikedPost(post))"></button>
+                    @post.Likes
+                }
+
+                else
+                {
+                    <button id="close-CSS" @onclick="@(e => LikedPost(post))"></button>
+                    @post.Likes
+                }
 
 
 
-            <button class="btn btn-danger" @onclick="@(e=>Delete(@post.Id))" style="float:right">Delete</button>
-        </p>
-    </div>
+                <button class="btn btn-danger" @onclick="@(e=>Delete(@post.Id))" style="float:right">Delete</button>
+            </p>
+        </div>
 
     }
     <div class="row">
@@ -76,10 +87,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-
         GetUsers();
-
     }
+
     private void GetUsers()
     {
 
@@ -91,7 +101,6 @@
         Reset();
         GetUsers();
     }
-
     private void Reset()
     {
         post = new Post();
@@ -120,6 +129,23 @@
         post.AddUnLike();
         postService.SaveOrUpdate(post);
         GetUsers();
+    }
+    private bool MethodWithNeo4jUserPost(Post post)
+    {
+        bool result = false;
+        if (userNeo4jService.GetPathLength(currentUser.Id, post.Id) == 1)
+        {
+            result = true;
+        }
+        return result;
+    }
+    private void MethodWithNeo4jUnLike(Post post)
+    {
+        userNeo4jService.UnLikeUserPostGraph(currentUser.Id, post.Id);
+    }
+    private void MethodWithNeo4jLike(Post post)
+    {
+        userNeo4jService.LikeUserPostGraph(currentUser.Id, post.Id);
     }
 
 }
